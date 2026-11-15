@@ -81,69 +81,53 @@
     <main id="main">
 
         <!--HERO SECTION-->
-        <section class="hero">
-            <!--ANG GLOW SA LIKOD-->
+       <section class="tool-header-section">
             <div class="glow glow-1" aria-hidden="true"></div>
             <div class="glow glow-2" aria-hidden="true"></div>
 
-            <div class="container hero-content">
-                <h1><span class="highlight">Conversion</span> Program</span></h1>
+            <div class="container">
+                <h1><span class="highlight">Conversion</span> Program</h1>
+                <p class="lede">Convert between metric and imperial units.</p>
             </div>
         </section>
 
         <section class="programs">
             <div class="container"> 
                 <article class="card tool-card">
-                    <div class="tool-header">
-                        <div class="text-select-wrapper">
+                    <!--HEADER -->
+                    <div class="card-header-area">
+                        <div class="title-select-wrapper">
                             <select id="conversion-type" class="title-select" aria-label="Select conversion type">
-                                <option value="length">Length</option>
-                                <option value="temperature">Temperature</option>
+                                <option value="length">Meters to Feet</option>
+                                <option value="temperature">Celsius to Fahrenheit</option>
                             </select>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <svg class="title-arrow" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
                         </div>
+                        <p class="formula-text" id="formula-display">Formula: ft = m × 3.28084 (non-negative length only)</p>
                     </div>
 
-                    <form id="conversion-form" class="tool-form">
-                        <!--INPUT 1-->
-                        <div class="field">
-                            <label for="input-value" id="label-from">Length in Meters (m)</label>
-                            <input type="number" id="input-value" placeholder="e.g. 10" required step="any">
+                    <form id="conversion-form">
+                        <div class="input-group-wrapper">
+                            <div class="input-field">
+                                <label for="input-value" id="label-from">Length in Meters (m)</label>
+                                <input type="number" id="input-value" placeholder="10" required step="any">
+                            </div>
+                            <button type="submit" class="btn btn-primary convert-btn">Convert</button>
                         </div>
 
-                        <!--INVERSE-->
-                        <div class="swap-container">
-                            <button type="button" id="swap-btn" class="swap-btn" aria-label="Swap units">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M17 3l4 4-4 4"></path>
-                                <path d="M3 7h18"></path>
-                                <path d="M7 21l-4-4 4-4"></path>
-                                <path d="M21 17H3"></path>
-                            </svg>
-                            </button>
+                        <div class="result-box">
+                            <span class="result-label" id="label-to">Result in Feet</span>
+                            <div class="result-value-wrapper">
+                                <span class="result-number" id="output-value">32.81</span>
+                                <span class="result-unit" id="output-unit">ft</span>
+                            </div>
+                            <p class="result-math" id="math-display">10 × 3.28084 = 32.81 ft</p>
                         </div>
-
-                        <!--INPUT 2 NGA READ ONLY-->
-                        <div class="field">
-                            <label for="output-value" id="label-to">Result in Feet (ft)</label>
-                            <input type="text" id="output-value" readonly class="result-input" placeholder="Result">
-                        </div>
-
-                        <!--ANG FORMULA-->
-                        <p class="formula" id="formula-display">Formula: ft = m × 3.28084</p>
-                  
-                        <!--CONVERT BTN-->
-                        <button type="submit" class="btn btn-primary btn-full">Convert</button>
                     </form>
-
                 </article>
-            </div>
+            </div>  
         </section>
     </main>
     

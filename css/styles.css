@@ -321,7 +321,7 @@ p {
     list-style: none;
     display: block;
     padding: var(--space-2);
-    color: var(--color-text-markdown); /* Note: This variable might be undefined in your root, you may want to change this to var(--color-text-secondary) */
+    color: var(--color-text-secondary); 
     text-decoration: none;
 }
 
@@ -334,14 +334,15 @@ p {
 
 /*HERO SECTION*/
 .hero {
-    padding-block: var(--space-24) var(--space-16);
+    padding-block: var(--space-24) var(--space-4);
     position: relative;
 }
 
 /*TOOLS*/
 .programs {
-    padding-block: var(--space-16);
+    padding-block: var(--space-1) var(--space-16);
     position: relative;
+    background: transparent;
 }
 
 .section-header {
@@ -428,8 +429,160 @@ p {
     transform: translateY(-4px);
 }
 
-/*CONVERSION*/
+/*TOOLS*/
 
+.tool-header-section {
+    padding-block: var(--space-16) var(--space-8); 
+    position: relative; 
+}
+
+.tool-header-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.tool-card {
+    max-width: 50rem;
+    margin-inline: auto;
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+}
+
+.card-header-area {
+    margin-bottom: var(--space-6);
+}
+
+.title-select-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: var(--space-2);
+}
+
+.title-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: none;
+    color: var(--color-accent);
+    font-family: var(--font-sans);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    cursor: pointer;
+    padding-right: var(--space-6);
+    outline: none;
+    transition: color 150ms ease-out;
+}
+
+.title-arrow {
+    position: absolute;
+    right: 0;
+    pointer-events: none;
+    color: var(--color-accent);
+    transition: transform 200ms ease, color 200ms ease;
+}
+
+.title-select-wrapper:hover .title-select {
+    color: var(--color-accent-hover);
+    text-shadow: 0 0 15px var(--glow);
+}
+
+.title-select-wrapper:hover .title-arrow {
+    color: var(--color-accent-hover);
+    transform: rotate(180deg);
+}
+
+.formula-text {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.input-group-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+}
+
+.input-field {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.input-field label {
+    font-size: var(--text-sm);
+    color: var(--color-text-primary);
+    font-weight: 500;
+}
+
+.input-field input {
+    width: 100%;
+    padding: var(--space-3);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+}
+
+.input-field input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 10px 30px -5px var(--glow);
+}
+
+.convert-btn {
+    padding-inline: var(--space-6);
+    height: 48px; 
+    border-radius: 8px;
+}
+
+.result-box {
+    background: #111111;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.result-label {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+}
+
+.result-value-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-1);
+}
+
+.result-number {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.result-unit {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.result-math {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+    margin-top: var(--space-2);
+}
 
 /*FOOTER*/
 .site-footer {
@@ -486,7 +639,7 @@ p {
     }
 
     .hero {
-        padding-block: var(--space-24);
+        padding-block: var(--space-24) ;
     }
 
     .contact-form {
