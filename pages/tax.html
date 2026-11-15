@@ -78,6 +78,139 @@
         </div>
     </header>
 
+    <main id="main">
+        <!-- HERO SECTION -->
+        <section class="tool-header-section">
+            <div class="glow glow-1" aria-hidden="true"></div>
+            <div class="glow glow-2" aria-hidden="true"></div>
+
+            <div class="container">
+                <h1><span class="highlight">Income Tax</span> Calculator</h1>
+                <p class="lede">Calculate your tax based on the Philippine TRAIN Law.</p>
+            </div>
+        </section>
+
+        <!-- TAX TOOL SECTION -->
+        <section class="programs">
+            <div class="container tax-layout">
+                
+                <!-- LEFT PANEL: CALCULATOR -->
+                <article class="card tool-card">
+                    <div class="card-header-area">
+                        <h2>Taxable Income</h2>
+                        <p class="formula-text">Annual Taxable Income (PHP)</p>
+                    </div>
+
+                    <form id="tax-form">
+                        <div class="input-group-wrapper">
+                            <div class="input-field">
+                                <input type="number" id="tax-input" placeholder="e.g. 500000" required min="0" step="any">
+                            </div>
+                            <button type="submit" class="btn btn-primary convert-btn">Calculate</button>
+                        </div>
+                        
+                        <!-- Quick Select Buttons -->
+                        <div class="quick-select-group">
+                            <button type="button" class="quick-btn" data-val="250000">₱250,000</button>
+                            <button type="button" class="quick-btn" data-val="500000">₱500,000</button>
+                            <button type="button" class="quick-btn" data-val="1000000">₱1,000,000</button>
+                            <button type="button" class="quick-btn" data-val="2500000">₱2,500,000</button>
+                        </div>
+                    </form>
+
+                    <!-- Result Box -->
+                    <div class="result-box">
+                        <span class="result-label">Annual Income Tax Due</span>
+                        <div class="result-value-wrapper">
+                            <span class="result-currency">₱</span>
+                            <span class="result-number" id="tax-due">0.00</span>
+                        </div>
+
+                        <div class="tax-breakdown-grid">
+                            <div class="tax-stat">
+                                <span class="stat-label">Annual Taxable Income</span>
+                                <span class="stat-value" id="stat-annual">₱0.00</span>
+                            </div>
+                            <div class="tax-stat">
+                                <span class="stat-label">Monthly Tax</span>
+                                <span class="stat-value" id="stat-monthly-tax">₱0.00</span>
+                            </div>
+                            <div class="tax-stat">
+                                <span class="stat-label">Effective Rate</span>
+                                <span class="stat-value" id="stat-rate">0.00%</span>
+                            </div>
+                            <div class="tax-stat">
+                                <span class="stat-label">Net Annual Pay</span>
+                                <span class="stat-value" id="stat-net-annual">₱0.00</span>
+                            </div>
+                            <div class="tax-stat">
+                                <span class="stat-label">Net Monthly Pay</span>
+                                <span class="stat-value" id="stat-net-monthly">₱0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- RIGHT PANEL: TABLE -->
+                <article class="card tool-card tax-table-card">
+                    <div class="card-header-area">
+                        <h2>Graduated Tax Bracket Table</h2>
+                        <p class="formula-text">The active bracket for your taxable income is highlighted in yellow.</p>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="tax-table">
+                            <thead>
+                                <tr>
+                                    <th>Taxable Income Bracket</th>
+                                    <th>Base Tax</th>
+                                    <th>Rate on Excess</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tax-table-body">
+                                <tr data-bracket="1">
+                                    <td>Up to ₱250,000</td>
+                                    <td>₱0.00</td>
+                                    <td>0%</td>
+                                </tr>
+                                <tr data-bracket="2">
+                                    <td>₱250,001 to ₱400,000</td>
+                                    <td>₱0.00</td>
+                                    <td>15% of excess over ₱250,000.00</td>
+                                </tr>
+                                <tr data-bracket="3">
+                                    <td>₱400,001 to ₱800,000</td>
+                                    <td>₱22,500.00</td>
+                                    <td>20% of excess over ₱400,000.00</td>
+                                </tr>
+                                <tr data-bracket="4">
+                                    <td>₱800,001 to ₱2,000,000</td>
+                                    <td>₱102,500.00</td>
+                                    <td>25% of excess over ₱800,000.00</td>
+                                </tr>
+                                <tr data-bracket="5">
+                                    <td>₱2,000,001 to ₱8,000,000</td>
+                                    <td>₱402,500.00</td>
+                                    <td>30% of excess over ₱2,000,000.00</td>
+                                </tr>
+                                <tr data-bracket="6">
+                                    <td>Over ₱8,000,000</td>
+                                    <td>₱2,202,500.00</td>
+                                    <td>35% of excess over ₱8,000,000.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-footer">
+                        <p>Calculation: <span id="tax-math-display">Awaiting input...</span></p>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+    
     <!--FOOTER PRE-->
     <footer class="site-footer">
         <div class="footer-inner">
@@ -90,6 +223,7 @@
             </ul>
         </div>
     </footer>
+    <script src="../js/main.js" defer></script>
 </body>
 
 </html>

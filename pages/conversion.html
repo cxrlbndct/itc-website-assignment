@@ -94,17 +94,25 @@
         <section class="programs">
             <div class="container"> 
                 <article class="card tool-card">
-                    <!--HEADER -->
                     <div class="card-header-area">
-                        <div class="title-select-wrapper">
-                            <select id="conversion-type" class="title-select" aria-label="Select conversion type">
-                                <option value="length">Meters to Feet</option>
-                                <option value="temperature">Celsius to Fahrenheit</option>
-                            </select>
-                            <svg class="title-arrow" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
+                        <div class="custom-select-wrapper" id="custom-dropdown">
+                            <button type="button" class="title-select" id="dropdown-trigger" aria-expanded="false" aria-haspopup="listbox">
+                                <span id="selected-text">Length Converter</span>
+                                <svg class="title-arrow" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </button>
+
+                            <ul class="custom-menu" role="listbox" id="dropdown-menu">
+                                <li role="option">
+                                    <button type="button" class="menu-option" data-value="length">Length Converter</button>
+                                </li>
+                                <li role="option">
+                                    <button type="button" class="menu-option" data-value="temperature">Temperature Converter</button>
+                                </li>
+                            </ul>
                         </div>
+                        
                         <p class="formula-text" id="formula-display">Formula: ft = m × 3.28084 (non-negative length only)</p>
                     </div>
 
@@ -112,8 +120,18 @@
                         <div class="input-group-wrapper">
                             <div class="input-field">
                                 <label for="input-value" id="label-from">Length in Meters (m)</label>
-                                <input type="number" id="input-value" placeholder="10" required step="any">
+                                <input type="number" id="input-value" placeholder="e.g. 10" required step="any">
                             </div>
+                            <button type="button" id="inverse-btn" class="btn inverse-btn" aria-label="Inverse Conversion">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M17 3l4 4-4 4"></path>
+                                <path d="M3 7h18"></path>
+                                <path d="M7 21l-4-4 4-4"></path>
+                                <path d="M21 17H3"></path>
+                            </svg>
+                            </button>
                             <button type="submit" class="btn btn-primary convert-btn">Convert</button>
                         </div>
 
@@ -143,6 +161,7 @@
             </ul>
         </div>
     </footer>
+    <script src="../js/main.js" defer></script>
 </body>
 
 </html>
