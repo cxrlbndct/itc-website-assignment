@@ -121,3 +121,96 @@ if (conversionForm) {
     updateUILabels();
 }
 
+/*TAX CALC*/
+const taxForm = document.getElementById('tax-form');
+
+if (taxForm) {
+    const taxInput = document.getElementById('tax-input');
+    const quickBtns = document.querySelectorAll('.quick-btn');
+    const tableBody = document.getElementById('tax-table-body');
+
+    const elTaxDue = document.getElementById('tax-due');
+    const elStatAnnual = document.getElementById('stat-annual');
+    const elStatMonthlyTax = document.getElementById('stat-monthly-tax');
+    const elStatRate = document.getElementById('stat-rate');
+    const elStatNetAnnual = document.getElementById('stat-net-annual');
+    const elStatNetMonthly = document.getElementById('stat-net-monthly');
+    const elMathDisplay = document.getElementById('tax-math-display');
+
+    const formatCurrency = (num) => {
+        return new Intl.NumberFormat('en-PH', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(num);
+    };
+
+    quickBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            taxInput.value = btn.getAttribute('data-val');
+            taxForm.dispatchEvent(new Event('submit'));
+        });
+    });
+
+    taxForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+ 
+        const income = parseFloat(taxInput.value);
+        if (isNaN(income) || income < 0) return;
+
+        let taxDue = 0;
+        let bracketIndex = 1;
+        let mathString = '';
+
+        if (income <= 250000) {
+            taxDue = 0;
+            bracketIndex = 1;
+            mathString = 'Income is exempt from tax.';
+        }
+        else if (income <= 400000) {
+            taxDue = 0 + (income - 250000) * 0.15;
+            bracketIndex = 2;
+            mathString = `₱0.00 + (15% × ₱${formatCurrency(income - 250000)}) = ₱${formatCurrency(taxDue)}`;
+        }
+        else if (income <= 800000) {
+            taxDue = 22500 + (income - 400000) * 0.20;
+            bracketIndex = 3;
+            mathString = `₱22,500.00 + (20% × ₱${formatCurrency(income - 400000)}) = ₱${formatCurrency(taxDue)}`;
+        }
+        else if (income <= 2000000) {
+            taxDue = 102500 + (income - 800000) * 0.25;
+            bracketIndex = 4;
+            mathString = `₱102,500.00 + (25% × ₱${formatCurrency(income - 800000)}) = ₱${formatCurrency(taxDue)}`;
+        }
+        else if (income <= 8000000) {
+            taxDue = 402500 + (income - 2000000) * 0.30;
+            bracketIndex = 5;
+            mathString = `₱402,500.00 + (30% × ₱${formatCurrency(income - 2000000)}) = ₱${formatCurrency(taxDue)}`;
+        }
+        else {
+            taxDue = 2202500 + (income - 8000000) * 0.35;
+            bracketIndex = 6;
+            mathString = `₱2,202,500.00 + (35% × ₱${formatCurrency(income - 8000000)}) = ₱${formatCurrency(taxDue)}`;
+        }
+
+        const monthlyTax = taxDue / 12;
+        const effectiveRate = (taxDue / income) * 100;
+        const netAnnual = income - taxDue;
+        const netMonthly = netAnnual / 12;
+
+        elTaxDue.textContent = formatCurrency(taxDue);
+        elStatAnnual.textContent = `₱${formatCurrency(income)}`;
+        elStatMonthlyTax.textContent = `₱${formatCurrency(monthlyTax)}`;
+        elStatRate.textContent = `${effectiveRate.toFixed(2)}%`;
+        elStatNetAnnual.textContent = `₱${formatCurrency(netAnnual)}`;
+        elStatNetMonthly.textContent = `₱${formatCurrency(netMonthly)}`;
+        elMathDisplay.textContent = mathString;
+
+        const allActiveRows = tableBody.querySelectorAll('.active-bracket');
+        allActiveRows.forEach(row => row.classList.remove('active-bracket'));
+ 
+        const targetRow = tableBody.querySelector(`tr\[data-bracket="${bracketIndex}"]`);
+        if (targetRow) {
+            targetRow.classList.add('active-bracket');
+        }
+    });
+}

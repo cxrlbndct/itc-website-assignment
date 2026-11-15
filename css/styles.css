@@ -896,15 +896,12 @@ input[type="number"] {
 @media (max-width: 75rem) {
     .header-inner {
         flex-wrap: wrap;
-        /* Allows the nav to drop below the logo */
         justify-content: center;
-        /* Centers everything when stacked */
         gap: var(--space-4);
     }
 
     .nav-list {
         flex-wrap: wrap;
-        /* Allows the buttons to wrap onto new lines */
         justify-content: center;
     }
 }
