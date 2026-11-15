@@ -60,6 +60,44 @@ document.addEventListener("DOMContentLoaded", () => {
         </footer>
     `;
 
+    // --- MISSING LINE 1: The Glow HTML ---
+    const glowHTML = `<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>`;
+
+    // Inject everything into the DOM
     document.body.insertAdjacentHTML('afterbegin', headerHTML);
     document.body.insertAdjacentHTML('beforeend', footerHTML);
+    
+    // --- MISSING LINE 2: Inject the Glow ---
+    document.body.insertAdjacentHTML('beforeend', glowHTML);
+
+    // --- MISSING LINE 3: Call the function ---
+    initCursorGlow();
 });
+
+function initCursorGlow() {
+    const cursorGlow = document.getElementById('cursor-glow');
+
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (cursorGlow && hasFinePointer && !prefersReducedMotion) {
+        
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let isTicking = false;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            if (!isTicking) {
+                window.requestAnimationFrame(() => {
+                    cursorGlow.style.setProperty('--mouse-x', `${mouseX}px`);
+                    cursorGlow.style.setProperty('--mouse-y', `${mouseY}px`);
+                    isTicking = false;
+                });
+                isTicking = true;
+            }
+        });
+    }
+}

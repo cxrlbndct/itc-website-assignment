@@ -214,3 +214,26 @@ if (taxForm) {
         }
     });
 }
+
+const cursorGlow = document.getElementById('cursor-glow');
+
+if (cursorGlow && window.matchMedia('(pointer: fine)').matches) {
+    
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let isTicking = false;
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        if (!isTicking) {
+            window.requestAnimationFrame(() => {
+                cursorGlow.style.setProperty('--mouse-x', `${mouseX}px`);
+                cursorGlow.style.setProperty('--mouse-y', `${mouseY}px`);
+                isTicking = false;
+            });
+            isTicking = true;
+        }
+    });
+}
