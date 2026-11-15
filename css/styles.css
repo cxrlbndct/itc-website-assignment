@@ -481,10 +481,6 @@ input[type="number"] {
     max-width: 50rem;
     margin-inline: auto;
     padding: var(--space-6);
-    background: var(--color-surface);
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-    border-radius: var(--radius);
 }
 
 .card-header-area {
@@ -790,6 +786,7 @@ input[type="number"] {
 .tax-table {
     width: 100%;
     border-collapse: collapse;
+    border-spacing: 0 4px;
     text-align: left;
 }
 
@@ -804,18 +801,35 @@ input[type="number"] {
 .tax-table td {
     font-size: var(--text-sm);
     padding: var(--space-3) var(--space-2);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
     color: var(--color-text-primary);
+    border-bottom: none; 
+    transition: background-color 300ms ease, color 300ms ease;
 }
 
-.tax-table tr.active-bracket {
-    background: var(--color-bg-secondary);
+.tax-table td:first-child {
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+}
+
+.tax-table td:last-child {
+    border-top-right-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
 }
 
 .tax-table tr.active-bracket td {
+    background-color: var(--color-bg-secondary);
     color: var(--color-accent);
     font-weight: 600;
-    border-bottom: 1px solid var(--color-accent);
+}
+
+.tax-table tr.active-bracket td:first-child {
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+}
+
+.tax-table tr.active-bracket td:last-child {
+    border-top-right-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
 }
 
 .table-footer {
@@ -888,9 +902,6 @@ input[type="number"] {
         padding-block: var(--space-24);
     }
 
-    .contact-form {
-        padding: var(--space-12);
-    }
 }
 
 @media (max-width: 75rem) {
