@@ -17,6 +17,81 @@
 </head>
 
 <body>
+    <main id="main">
+
+    <section class="tool-header-section">
+        <div class="glow glow-1" aria-hidden="true"></div>
+        <div class="glow glow-2" aria-hidden="true"></div>
+        <div class="container">
+            <h1><span class="highlight">Simple Payroll</span> Program</h1>
+            <p class="lede">Calculate gross pay, tax deductions, and net salary for your employees.</p>
+        </div>
+    </section>
+
+    <section class="programs">
+        <div class="container tax-layout">
+            <article class="card tool-card tax-card">
+                <div class="card-header-area">
+                    <h2>Employee Details</h2>
+                    <p class="formula-text">Enter the monthly basic salary</p>
+                </div>
+
+                <form id="payroll-form">
+                    <div class="input-group-wrapper">
+                        <div class="input-field">
+                            <label for="payroll-input">Monthly Basic Salary (PHP)</label>
+                            <input type="number" id="payroll-input" placeholder="e.g. 30000" required min="0" step="any">
+                        </div>
+                        <button type="submit" class="btn btn-primary convert-btn">Calculate</button>
+                    </div>
+                </form>
+
+                <div class="result-box tax-result-box">
+                    <span class="result-label">Net Monthly Pay</span>
+                    <div class="result-value-wrapper">
+                        <span class="result-currency">₱</span>
+                        <span class="result-number" id="payroll-net-pay">0.00</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card tool-card tax-table-card">
+                <div class="card-header-area">
+                    <h2>Payslip Breakdown</h2>
+                    <p class="formula-text">A summary of earnings and deductions.</p>
+                </div>
+
+                <div class="tax-breakdown-grid">
+                    <div class="tax-stat">
+                        <span class="stat-label">Gross Monthly Pay</span>
+                        <span class="stat-value" id="pay-gross">₱0.00</span>
+                    </div>
+                    <div class="tax-stat">
+                        <span class="stat-label">Tax Deduction (BIR)</span>
+                        <span class="stat-value" id="pay-tax">₱0.00</span>
+                    </div>
+                    <div class="tax-stat">
+                        <span class="stat-label">SSS Contribution</span>
+                        <span class="stat-value" id="pay-sss">₱0.00</span>
+                    </div>
+                    <div class="tax-stat">
+                        <span class="stat-label">PhilHealth</span>
+                        <span class="stat-value" id="pay-philhealth">₱0.00</span>
+                    </div>
+                    <div class="tax-stat">
+                        <span class="stat-label">Pag-IBIG</span>
+                        <span class="stat-value" id="pay-pagibig">₱0.00</span>
+                    </div>
+                    <div class="tax-stat">
+                        <span class="stat-label">Total Deductions</span>
+                        <span class="stat-value" id="pay-total-deductions">₱0.00</span>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+</main>
     <script src="../js/components.js" defer></script>
     <script src="../js/main.js" defer></script>
 </body>
