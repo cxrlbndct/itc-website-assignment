@@ -121,7 +121,7 @@ if (conversionForm) {
     updateUILabels();
 }
 
-/*TAX CALC*/
+// TAX CALC
 const taxForm = document.getElementById('tax-form');
 
 if (taxForm) {
@@ -136,6 +136,8 @@ if (taxForm) {
     const elStatNetAnnual = document.getElementById('stat-net-annual');
     const elStatNetMonthly = document.getElementById('stat-net-monthly');
     const elMathDisplay = document.getElementById('tax-math-display');
+
+    let currentMode = 'tax'; 
 
     const formatCurrency = (num) => {
         return new Intl.NumberFormat('en-PH', {
@@ -236,4 +238,112 @@ if (cursorGlow && window.matchMedia('(pointer: fine)').matches) {
             isTicking = true;
         }
     });
+}
+
+// FACTORIAL
+const factorialForm = document.getElementById('factorial-form');
+
+if (factorialForm) {
+    const dropdownWrapper = document.getElementById('factorial-dropdown');
+    const dropdownTrigger = document.getElementById('factorial-trigger');
+    const menuOptions = document.querySelectorAll('#factorial-menu .menu-option');
+    const selectedText = document.getElementById('factorial-selected-text');
+    const formulaText = document.getElementById('factorial-formula');
+    const inputLabel = document.getElementById('factorial-label');
+    const resultLabel = document.getElementById('factorial-result-label');
+    const outputEl = document.getElementById('factorial-output');
+    const mathEl = document.getElementById('factorial-math');
+
+    let currentMode = 'factorial';
+
+    dropdownTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        const isOpen = dropdownWrapper.classList.contains('is-open');
+        dropdownWrapper.classList.toggle('is-open');
+        dropdownTrigger.setAttribute('aria-expanded', !isOpen);
+    });
+
+    menuOptions.forEach(option => {
+        option.addEventListener('click', (e) => {
+            e.preventDefault();
+            currentMode = e.target.getAttribute('data-value');
+            selectedText.textContent = e.target.textContent;
+            dropdownWrapper.classList.remove('is-open');
+            dropdownTrigger.setAttribute('aria-expanded', 'false');
+            updateUILabels();
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!dropdownWrapper.contains(e.target)) {
+            dropdownWrapper.classList.remove('is-open');
+            dropdownTrigger.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    function updateUILabels() {
+        if (currentMode === 'factorial') {
+            formulaText.textContent = 'Formula: n! = n × (n - 1) × ... × 2 × 1';
+            inputLabel.textContent = 'First n numbers';
+            resultLabel.textContent = 'Factorial Result';
+        } else if (currentMode === 'sum') {
+            formulaText.textContent = 'Formula: Sum = n × (n + 1) / 2';
+            inputLabel.textContent = 'First n numbers';
+            resultLabel.textContent = 'Sum Result';
+        } else if (currentMode === 'average') {
+            formulaText.textContent = 'Formula: Average = Sum / n';
+            inputLabel.textContent = 'First n numbers';
+            resultLabel.textContent = 'Average Result';
+        }
+        outputEl.textContent = '0';
+        mathEl.textContent = 'Awaiting input...';
+    }
+
+    factorialForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const n = parseInt(document.getElementById('factorial-input').value);
+
+        if (isNaN(n) || n < 1) {
+            outputEl.textContent = 'Invalid';
+            mathEl.textContent = 'Please enter a positive whole number.';
+            return;
+        }
+
+        let result, mathString;
+
+        if (currentMode === 'factorial') {
+            let fact = 1n;
+            for (let i = 2n; i <= BigInt(n); i++) {
+                fact *= i;
+            }
+            result = fact;
+            
+            const displayN = n <= 10 ? n : 'n';
+            mathString = `${displayN} × ${n > 10 ? '(n-1)' : n-1} × ... × 2 × 1 = ${formatNumber(result)}`;
+        } 
+        else if (currentMode === 'sum') {
+            result = (n * (n + 1)) / 2;
+            mathString = `(${n} × ${n + 1}) / 2 = ${formatNumber(result)}`;
+        } 
+        else if (currentMode === 'average') {
+            const sum = (n * (n + 1)) / 2;
+            result = sum / n;
+            mathString = `(${formatNumber(sum)} / ${n}) = ${formatNumber(result)}`;
+        }
+
+        outputEl.textContent = formatNumber(result);
+        mathEl.textContent = mathString;
+    });
+
+    function formatNumber(num) {
+        if (typeof num === 'bigint') {
+            return num.toLocaleString('en-US');
+        }
+        if (Number.isInteger(num)) {
+            return num.toLocaleString('en-US');
+        }
+        return num.toFixed(2);
+    }
+
+    updateUILabels();
 }
