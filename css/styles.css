@@ -802,7 +802,7 @@ input[type="number"] {
     font-size: var(--text-sm);
     padding: var(--space-3) var(--space-2);
     color: var(--color-text-primary);
-    border-bottom: none; 
+    border-bottom: none;
     transition: background-color 300ms ease, color 300ms ease;
 }
 
@@ -896,15 +896,15 @@ input[type="number"] {
     position: fixed;
     top: 0;
     left: 0;
-    width: 150px; 
+    width: 150px;
     height: 150px;
-    margin-top: -125px; 
+    margin-top: -125px;
     margin-left: -125px;
     background: var(--color-accent);
     filter: blur(100px);
-    opacity: 0.1; 
-    pointer-events: none; 
-    z-index: 1; 
+    opacity: 0.1;
+    pointer-events: none;
+    z-index: 1;
     transform: translate3d(var(--mouse-x, 50vw), var(--mouse-y, 50vh), 0);
     will-change: transform;
     display: block;
