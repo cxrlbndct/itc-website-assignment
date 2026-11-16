@@ -347,3 +347,64 @@ if (factorialForm) {
 
     updateUILabels();
 }
+
+// PAYROLL
+const payrollForm = document.getElementById('payroll-form');
+
+if (payrollForm) {
+    const payrollInput = document.getElementById('payroll-input');
+    const elNetPay = document.getElementById('payroll-net-pay');
+    const elGross = document.getElementById('pay-gross');
+    const elTax = document.getElementById('pay-tax');
+    const elSSS = document.getElementById('pay-sss');
+    const elPhilhealth = document.getElementById('pay-philhealth');
+    const elPagibig = document.getElementById('pay-pagibig');
+    const elTotalDeductions = document.getElementById('pay-total-deductions');
+
+    const formatCurrency = (num) => {
+        return new Intl.NumberFormat('en-PH', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(num);
+    };
+
+    payrollForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const basicSalary = parseFloat(payrollInput.value);
+        if (isNaN(basicSalary) || basicSalary < 0) return;
+
+        const annualIncome = basicSalary * 12;
+        let annualTax = 0;
+
+        if (annualIncome > 8000000) {
+            annualTax = 2202500 + (annualIncome - 8000000) * 0.35;
+        } else if (annualIncome > 2000000) {
+            annualTax = 402500 + (annualIncome - 2000000) * 0.30;
+        } else if (annualIncome > 800000) {
+            annualTax = 102500 + (annualIncome - 800000) * 0.25;
+        } else if (annualIncome > 400000) {
+            annualTax = 22500 + (annualIncome - 400000) * 0.20;
+        } else if (annualIncome > 250000) {
+            annualTax = 0 + (annualIncome - 250000) * 0.15;
+        }
+        
+        const monthlyTax = annualTax / 12;
+
+        const sssDeduction = basicSalary * 0.045;      
+        const philhealthDeduction = basicSalary * 0.02;
+        const pagibigDeduction = 100;                   
+
+        const totalDeductions = monthlyTax + sssDeduction + philhealthDeduction + pagibigDeduction;
+        const netPay = basicSalary - totalDeductions;
+
+        elGross.textContent = `₱${formatCurrency(basicSalary)}`;
+        elTax.textContent = `₱${formatCurrency(monthlyTax)}`;
+        elSSS.textContent = `₱${formatCurrency(sssDeduction)}`;
+        elPhilhealth.textContent = `₱${formatCurrency(philhealthDeduction)}`;
+        elPagibig.textContent = `₱${formatCurrency(pagibigDeduction)}`;
+        elTotalDeductions.textContent = `₱${formatCurrency(totalDeductions)}`;
+        
+        elNetPay.textContent = formatCurrency(netPay);
+    });
+}
