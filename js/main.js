@@ -352,14 +352,15 @@ if (factorialForm) {
 const payrollForm = document.getElementById('payroll-form');
 
 if (payrollForm) {
-    const payrollInput = document.getElementById('payroll-input');
-    const elNetPay = document.getElementById('payroll-net-pay');
-    const elGross = document.getElementById('pay-gross');
-    const elTax = document.getElementById('pay-tax');
-    const elSSS = document.getElementById('pay-sss');
-    const elPhilhealth = document.getElementById('pay-philhealth');
-    const elPagibig = document.getElementById('pay-pagibig');
-    const elTotalDeductions = document.getElementById('pay-total-deductions');
+    let employees = []; 
+
+    const tableBody = document.getElementById('payroll-table-body');
+    const deleteBtn = document.getElementById('btn-delete');
+  
+    const inputName = document.getElementById('emp-name');
+    const inputDays = document.getElementById('emp-days');
+    const inputRate = document.getElementById('emp-rate');
+    const inputDeduction = document.getElementById('emp-deduction');
 
     const formatCurrency = (num) => {
         return new Intl.NumberFormat('en-PH', {
@@ -368,43 +369,76 @@ if (payrollForm) {
         }).format(num);
     };
 
+    function renderTable() {
+        tableBody.innerHTML = '';
+
+        if (employees.length === 0) {
+            tableBody.innerHTML = `
+                <tr id="empty-state">
+                    <td colspan="7" style="text-align: center; padding: var(--space-6); color: var(--color-text-secondary);">
+                        No employees added yet.
+                    </td>
+                </tr>`;
+            return;
+        }
+
+        employees.forEach((emp, index) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${emp.name}</td>
+                <td>${emp.days}</td>
+                <td>₱${formatCurrency(emp.rate)}</td>
+                <td>₱${formatCurrency(emp.gross)}</td>
+                <td>₱${formatCurrency(emp.deduction)}</td>
+                <td style="color: var(--color-accent); font-weight: bold;">₱${formatCurrency(emp.net)}</td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    }
+
     payrollForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
-        const basicSalary = parseFloat(payrollInput.value);
-        if (isNaN(basicSalary) || basicSalary < 0) return;
 
-        const annualIncome = basicSalary * 12;
-        let annualTax = 0;
+        const name = inputName.value.trim();
+        const days = parseFloat(inputDays.value);
+        const rate = parseFloat(inputRate.value);
+        const deduction = parseFloat(inputDeduction.value);
+        const gross = days * rate;
+        const net = gross - deduction;
 
-        if (annualIncome > 8000000) {
-            annualTax = 2202500 + (annualIncome - 8000000) * 0.35;
-        } else if (annualIncome > 2000000) {
-            annualTax = 402500 + (annualIncome - 2000000) * 0.30;
-        } else if (annualIncome > 800000) {
-            annualTax = 102500 + (annualIncome - 800000) * 0.25;
-        } else if (annualIncome > 400000) {
-            annualTax = 22500 + (annualIncome - 400000) * 0.20;
-        } else if (annualIncome > 250000) {
-            annualTax = 0 + (annualIncome - 250000) * 0.15;
+        employees.push({
+            name: name,
+            days: days,
+            rate: rate,
+            gross: gross,
+            deduction: deduction,
+            net: net
+        });
+
+        payrollForm.reset();
+        renderTable();
+    });
+
+    deleteBtn.addEventListener('click', () => {
+        if (employees.length === 0) {
+            alert("The payroll list is empty.");
+            return;
         }
-        
-        const monthlyTax = annualTax / 12;
 
-        const sssDeduction = basicSalary * 0.045;      
-        const philhealthDeduction = basicSalary * 0.02;
-        const pagibigDeduction = 100;                   
+        const input = prompt("Enter the Line Number (No.) of the employee to delete:");
 
-        const totalDeductions = monthlyTax + sssDeduction + philhealthDeduction + pagibigDeduction;
-        const netPay = basicSalary - totalDeductions;
+        if (input === null) return;
 
-        elGross.textContent = `₱${formatCurrency(basicSalary)}`;
-        elTax.textContent = `₱${formatCurrency(monthlyTax)}`;
-        elSSS.textContent = `₱${formatCurrency(sssDeduction)}`;
-        elPhilhealth.textContent = `₱${formatCurrency(philhealthDeduction)}`;
-        elPagibig.textContent = `₱${formatCurrency(pagibigDeduction)}`;
-        elTotalDeductions.textContent = `₱${formatCurrency(totalDeductions)}`;
-        
-        elNetPay.textContent = formatCurrency(netPay);
+        const lineNo = parseInt(input);
+
+        if (isNaN(lineNo) || lineNo < 1 || lineNo > employees.length) {
+            alert("Invalid Line Number. Please try again.");
+            return;
+        }
+
+        employees.splice(lineNo - 1, 1);
+      
+        renderTable();
     });
 }
