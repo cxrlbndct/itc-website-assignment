@@ -674,6 +674,8 @@ input[type="number"] {
     font-size: var(--text-3xl);
     font-weight: 700;
     color: var(--color-accent);
+    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
 .result-unit {
