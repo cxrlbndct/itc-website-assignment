@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Inject everything into the DOM
     document.body.insertAdjacentHTML('afterbegin', headerHTML);
     document.body.insertAdjacentHTML('beforeend', footerHTML);
-    
+
     // --- MISSING LINE 2: Inject the Glow ---
     document.body.insertAdjacentHTML('beforeend', glowHTML);
 
@@ -81,12 +81,12 @@ function initCursorGlow() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (cursorGlow && hasFinePointer && !prefersReducedMotion) {
-        
+
         let mouseX = window.innerWidth / 2;
         let mouseY = window.innerHeight / 2;
         let isTicking = false;
 
-        window.addEventListener('mousemove', (e) => {
+        window.addEventListener('pointermove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
 
@@ -98,6 +98,6 @@ function initCursorGlow() {
                 });
                 isTicking = true;
             }
-        });
+        }, { passive: true });
     }
 }

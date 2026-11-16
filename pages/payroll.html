@@ -18,80 +18,85 @@
 
 <body>
     <main id="main">
+        <section class="tool-header-section">
+            <div class="glow glow-1" aria-hidden="true"></div>
+            <div class="glow glow-2" aria-hidden="true"></div>
+            <div class="container">
+                <h1><span class="highlight">Simple Payroll</span> Program</h1>
+                <p class="lede">Add or delete employees to calculate their net pay.</p>
+            </div>
+        </section>
 
-    <section class="tool-header-section">
-        <div class="glow glow-1" aria-hidden="true"></div>
-        <div class="glow glow-2" aria-hidden="true"></div>
-        <div class="container">
-            <h1><span class="highlight">Simple Payroll</span> Program</h1>
-            <p class="lede">Calculate gross pay, tax deductions, and net salary for your employees.</p>
-        </div>
-    </section>
+        <section class="programs">
+            <div class="container">
+             
+                <article class="card tool-card" style="max-width: 100%; margin-bottom: var(--space-6);">
+                    <div class="card-header-area">
+                        <h2>Add Employee</h2>
+                        <p class="formula-text">Gross Pay = Days Worked × Daily Rate</p>
+                    </div>
 
-    <section class="programs">
-        <div class="container tax-layout">
-            <article class="card tool-card tax-card">
-                <div class="card-header-area">
-                    <h2>Employee Details</h2>
-                    <p class="formula-text">Enter the monthly basic salary</p>
-                </div>
-
-                <form id="payroll-form">
-                    <div class="input-group-wrapper">
-                        <div class="input-field">
-                            <label for="payroll-input">Monthly Basic Salary (PHP)</label>
-                            <input type="number" id="payroll-input" placeholder="e.g. 30000" required min="0" step="any">
+                    <form id="payroll-form">
+                        <div class="payroll-input-grid">
+                            <div class="input-field">
+                                <label for="emp-name">Employee Name</label>
+                                <input type="text" id="emp-name" placeholder="John Doe" required>
+                            </div>
+                            <div class="input-field">
+                                <label for="emp-days">Days Worked</label>
+                                <input type="number" id="emp-days" placeholder="e.g. 15" required min="1" step="any">
+                            </div>
+                            <div class="input-field">
+                                <label for="emp-rate">Daily Rate (PHP)</label>
+                                <input type="number" id="emp-rate" placeholder="e.g. 500" required min="0" step="any">
+                            </div>
+                            <div class="input-field">
+                                <label for="emp-deduction">Deduction Amount (PHP)</label>
+                                <input type="number" id="emp-deduction" placeholder="e.g. 100" required min="0" step="any">
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary convert-btn">Calculate</button>
-                    </div>
-                </form>
 
-                <div class="result-box tax-result-box">
-                    <span class="result-label">Net Monthly Pay</span>
-                    <div class="result-value-wrapper">
-                        <span class="result-currency">₱</span>
-                        <span class="result-number" id="payroll-net-pay">0.00</span>
-                    </div>
-                </div>
-            </article>
+                        <div class="payroll-action-buttons">
+                            <button type="submit" class="btn btn-primary">Add Employee</button>
+                            <button type="button" id="btn-delete" class="btn inverse-btn" style="width: auto; padding-inline: var(--space-4);">
+                                Delete by Line No.
+                            </button>
+                        </div>
+                    </form>
+                </article>
 
-            <article class="card tool-card tax-table-card">
-                <div class="card-header-area">
-                    <h2>Payslip Breakdown</h2>
-                    <p class="formula-text">A summary of earnings and deductions.</p>
-                </div>
+                <article class="card tool-card" style="max-width: 100%;">
+                    <div class="card-header-area">
+                        <h2>Payroll List</h2>
+                    </div>
 
-                <div class="tax-breakdown-grid">
-                    <div class="tax-stat">
-                        <span class="stat-label">Gross Monthly Pay</span>
-                        <span class="stat-value" id="pay-gross">₱0.00</span>
+                    <div class="table-responsive">
+                        <table class="tax-table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Employee Name</th>
+                                    <th>Days Worked</th>
+                                    <th>Daily Rate</th>
+                                    <th>Gross Pay</th>
+                                    <th>Deduction</th>
+                                    <th>Net Pay</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payroll-table-body">
+                                <tr id="empty-state">
+                                    <td colspan="7" style="text-align: center; padding: var(--space-6); color: var(--color-text-secondary);">
+                                        No employees added yet.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="tax-stat">
-                        <span class="stat-label">Tax Deduction (BIR)</span>
-                        <span class="stat-value" id="pay-tax">₱0.00</span>
-                    </div>
-                    <div class="tax-stat">
-                        <span class="stat-label">SSS Contribution</span>
-                        <span class="stat-value" id="pay-sss">₱0.00</span>
-                    </div>
-                    <div class="tax-stat">
-                        <span class="stat-label">PhilHealth</span>
-                        <span class="stat-value" id="pay-philhealth">₱0.00</span>
-                    </div>
-                    <div class="tax-stat">
-                        <span class="stat-label">Pag-IBIG</span>
-                        <span class="stat-value" id="pay-pagibig">₱0.00</span>
-                    </div>
-                    <div class="tax-stat">
-                        <span class="stat-label">Total Deductions</span>
-                        <span class="stat-value" id="pay-total-deductions">₱0.00</span>
-                    </div>
-                </div>
-            </article>
+                </article>
 
-        </div>
-    </section>
-</main>
+            </div>
+        </section>
+    </main>
     <script src="../js/components.js" defer></script>
     <script src="../js/main.js" defer></script>
 </body>
